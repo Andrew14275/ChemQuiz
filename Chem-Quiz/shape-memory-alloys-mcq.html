@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shape Memory Alloys MCQ Lab</title>
+  <meta name="description" content="Interactive website with 20 MCQ questions on Shape Memory Alloys for engineering students." />
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=zodiak@400,700&display=swap" rel="stylesheet" />
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-1: 0.25rem;
+      --space-2: 0.5rem;
+      --space-3: 0.75rem;
+      --space-4: 1rem;
+      --space-5: 1.25rem;
+      --space-6: 1.5rem;
+      --space-8: 2rem;
+      --space-10: 2.5rem;
+      --space-12: 3rem;
+      --space-16: 4rem;
+      --space-20: 5rem;
+      --radius-sm: 0.375rem;
+      --radius-md: 0.75rem;
+      --radius-lg: 1.1rem;
+      --radius-xl: 1.5rem;
+      --radius-full: 9999px;
+      --color-bg: #f7f6f2;
+      --color-surface: #f9f8f5;
+      --color-surface-2: #ffffff;
+      --color-surface-offset: #edeae5;
+      --color-border: #d4d1ca;
+      --color-divider: #ddd8d0;
+      --color-text: #28251d;
+      --color-text-muted: #686761;
+      --color-text-faint: #9a9892;
+      --color-primary: #01696f;
+      --color-primary-hover: #0c4e54;
+      --color-primary-highlight: #d9ece8;
+      --color-success: #437a22;
+      --color-success-highlight: #dcead2;
+      --color-error: #a12c7b;
+      --color-error-highlight: #efd8e7;
+      --shadow-sm: 0 1px 2px rgba(33, 29, 24, 0.06);
+      --shadow-md: 0 10px 30px rgba(33, 29, 24, 0.10);
+      --shadow-lg: 0 18px 50px rgba(33, 29, 24, 0.14);
+      --transition-interactive: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+      --font-display: 'Zodiak', Georgia, serif;
+      --font-body: 'General Sans', Inter, sans-serif;
+    }
+    [data-theme="dark"] {
+      --color-bg: #171614;
+      --color-surface: #1c1b19;
+      --color-surface-2: #201f1d;
+      --color-surface-offset: #262420;
+      --color-border: #3a3835;
+      --color-divider: #2d2a27;
+      --color-text: #e1dfda;
+      --color-text-muted: #b3b0aa;
+      --color-text-faint: #7f7b75;
+      --color-primary: #68afb2;
+      --color-primary-hover: #92c8cb;
+      --color-primary-highlight: #223536;
+      --color-success: #86be5f;
+      --color-success-highlight: #2a3924;
+      --color-error: #d46daf;
+      --color-error-highlight: #3c2734;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,.22);
+      --shadow-md: 0 10px 30px rgba(0,0,0,.32);
+      --shadow-lg: 0 18px 50px rgba(0,0,0,.45);
+    }
+    * , *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    body {
+      min-height: 100vh;
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.6;
+      background:
+        radial-gradient(circle at top right, color-mix(in srgb, var(--color-primary) 13%, transparent), transparent 28%),
+        linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 85%, var(--color-bg)), var(--color-bg));
+      color: var(--color-text);
+    }
+    a, button { transition: all var(--transition-interactive); }
+    button { font: inherit; border: none; cursor: pointer; }
+    img, svg { display: block; max-width: 100%; }
+    .skip-link {
+      position: absolute; left: var(--space-4); top: -50px; background: var(--color-primary); color: #fff;
+      padding: var(--space-3) var(--space-4); border-radius: var(--radius-full); z-index: 10; text-decoration: none;
+    }
+    .skip-link:focus { top: var(--space-4); }
+    .shell { width: min(1120px, calc(100% - 2rem)); margin: 0 auto; }
+    header {
+      position: sticky; top: 0; z-index: 5; backdrop-filter: blur(12px);
+      background: color-mix(in srgb, var(--color-bg) 85%, transparent);
+      border-bottom: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between; gap: var(--space-4);
+      padding: var(--space-4) 0;
+    }
+    .brand { display: flex; align-items: center; gap: var(--space-3); font-weight: 600; }
+    .brand svg { width: 42px; height: 42px; color: var(--color-primary); }
+    .brand span { letter-spacing: 0.02em; }
+    .nav-actions { display: flex; align-items: center; gap: var(--space-3); }
+    .theme-btn, .ghost-btn, .primary-btn {
+      min-height: 44px; min-width: 44px; border-radius: var(--radius-full);
+      display: inline-flex; align-items: center; justify-content: center;
+      padding: 0 var(--space-4);
+    }
+    .theme-btn, .ghost-btn {
+      background: var(--color-surface);
+      color: var(--color-text);
+      border: 1px solid color-mix(in srgb, var(--color-text) 11%, transparent);
+    }
+    .theme-btn:hover, .ghost-btn:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+    .primary-btn {
+      background: var(--color-primary); color: #fff; font-weight: 600;
+      box-shadow: var(--shadow-sm);
+    }
+    .primary-btn:hover { background: var(--color-primary-hover); transform: translateY(-1px); }
+    main { padding: var(--space-10) 0 var(--space-16); }
+    .hero {
+      display: grid; grid-template-columns: 1.25fr 0.9fr; gap: var(--space-8); align-items: stretch;
+      padding: var(--space-8) 0 var(--space-12);
+    }
+    .hero-copy, .hero-panel, .quiz-card, .question-card, .info-card {
+      background: color-mix(in srgb, var(--color-surface-2) 82%, var(--color-bg));
+      border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+    }
+    .hero-copy {
+      padding: clamp(var(--space-6), 4vw, var(--space-12));
+      display: flex; flex-direction: column; justify-content: space-between; gap: var(--space-6);
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: var(--space-2); width: fit-content;
+      padding: var(--space-2) var(--space-4); border-radius: var(--radius-full);
+      background: var(--color-primary-highlight); color: var(--color-primary); font-size: var(--text-sm); font-weight: 600;
+    }
+    h1, h2, h3 { font-family: var(--font-display); line-height: 1.08; }
+    h1 { font-size: var(--text-2xl); max-width: 12ch; }
+    .hero p { color: var(--color-text-muted); max-width: 58ch; }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-4);
+    }
+    .stat {
+      padding: var(--space-4); border-radius: var(--radius-lg); background: var(--color-surface);
+      border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+    }
+    .stat strong { display: block; font-size: var(--text-lg); color: var(--color-primary); }
+    .stat span { color: var(--color-text-muted); font-size: var(--text-sm); }
+    .hero-panel {
+      padding: var(--space-6); display: grid; gap: var(--space-5); align-content: start;
+      background:
+        linear-gradient(180deg, color-mix(in srgb, var(--color-primary) 6%, var(--color-surface-2)), var(--color-surface-2));
+    }
+    .mini-grid {
+      display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-4);
+    }
+    .mini-card {
+      padding: var(--space-4); border-radius: var(--radius-lg); background: var(--color-surface);
+      border: 1px solid color-mix(in srgb, var(--color-text) 8%, transparent);
+    }
+    .mini-card small { color: var(--color-text-faint); text-transform: uppercase; letter-spacing: .08em; font-size: var(--text-xs); }
+    .mini-card strong { display: block; margin-top: var(--space-2); }
+    .layout {
+      display: grid; grid-template-columns: 290px minmax(0, 1fr); gap: var(--space-8);
+      align-items: start;
+    }
+    .quiz-card, .info-card { padding: var(--space-6); }
+    .sticky { position: sticky; top: 88px; }
+    .score-ring {
+      width: 130px; height: 130px; border-radius: 50%; margin: 0 auto var(--space-5);
+      display: grid; place-items: center;
+      background: conic-gradient(var(--color-primary) calc(var(--progress, 0) * 1%), var(--color-surface-offset) 0);
+    }
+    .score-ring::before {
+      content: ''; width: 96px; height: 96px; border-radius: 50%; background: var(--color-surface-2);
+      box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-text) 8%, transparent);
+    }
+    .score-ring span {
+      position: absolute; font-size: var(--text-lg); font-weight: 700; color: var(--color-primary);
+    }
+    .meta-list { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+    .meta-item {
+      display: flex; justify-content: space-between; gap: var(--space-3);
+      padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider);
+      color: var(--color-text-muted); font-size: var(--text-sm);
+    }
+    .meta-item strong { color: var(--color-text); }
+    .question-stack { display: grid; gap: var(--space-5); }
+    .question-card { padding: var(--space-6); }
+    .question-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-4); }
+    .question-number { color: var(--color-primary); font-size: var(--text-sm); font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+    .options { display: grid; gap: var(--space-3); margin-top: var(--space-4); }
+    .option {
+      position: relative; display: block;
+    }
+    .option input {
+      position: absolute; opacity: 0; inset: 0;
+    }
+    .option label {
+      min-height: 52px; display: flex; gap: var(--space-3); align-items: flex-start;
+      padding: var(--space-4); border-radius: var(--radius-lg); background: var(--color-surface);
+      border: 1px solid color-mix(in srgb, var(--color-text) 10%, transparent);
+      cursor: pointer;
+    }
+    .option label:hover { border-color: color-mix(in srgb, var(--color-primary) 45%, var(--color-border)); transform: translateY(-1px); }
+    .bullet {
+      width: 28px; height: 28px; flex: 0 0 28px; border-radius: 50%;
+      display: grid; place-items: center; font-size: var(--text-sm); font-weight: 700;
+      background: var(--color-surface-offset); color: var(--color-text-muted);
+    }
+    .option input:checked + label {
+      border-color: var(--color-primary); background: color-mix(in srgb, var(--color-primary) 8%, var(--color-surface));
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 13%, transparent);
+    }
+    .option input:checked + label .bullet { background: var(--color-primary); color: white; }
+    .feedback {
+      margin-top: var(--space-4); padding: var(--space-4); border-radius: var(--radius-lg);
+      font-size: var(--text-sm); display: none;
+    }
+    .feedback.correct { display: block; background: var(--color-success-highlight); color: var(--color-success); }
+    .feedback.wrong { display: block; background: var(--color-error-highlight); color: var(--color-error); }
+    .controls {
+      display: flex; flex-wrap: wrap; gap: var(--space-3); justify-content: space-between; align-items: center;
+      margin-top: var(--space-8);
+    }
+    .result-box {
+      margin-top: var(--space-6); padding: var(--space-6); border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, color-mix(in srgb, var(--color-primary) 10%, var(--color-surface)), var(--color-surface));
+      border: 1px solid color-mix(in srgb, var(--color-primary) 20%, transparent);
+      display: none;
+    }
+    .result-box.show { display: block; }
+    .info-grid {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-5); margin-top: var(--space-10);
+    }
+    .info-card h3 { font-size: var(--text-lg); margin-bottom: var(--space-3); }
+    .info-card p, .result-box p { color: var(--color-text-muted); }
+    footer {
+      padding: var(--space-10) 0 var(--space-12); color: var(--color-text-muted); font-size: var(--text-sm);
+    }
+    @media (max-width: 980px) {
+      .hero, .layout, .info-grid { grid-template-columns: 1fr; }
+      .sticky { position: static; }
+    }
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 1rem, 1120px); }
+      .nav { align-items: flex-start; flex-direction: column; }
+      .nav-actions { width: 100%; justify-content: space-between; }
+      .hero-stats, .mini-grid { grid-template-columns: 1fr; }
+      .question-card, .quiz-card, .info-card, .hero-copy, .hero-panel { padding: var(--space-5); }
+      .controls { flex-direction: column; align-items: stretch; }
+      .primary-btn, .ghost-btn { width: 100%; justify-content: center; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="https://taffic-flow-optimizer.notion.site/ACHEM-SLA-3-Report-34b3a3f19761800e9701fe9daa3107eb?source=copy_link">See report</a>
+  <header>
+    <div class="shell nav">
+      <div class="brand" aria-label="Shape Memory Alloys MCQ Lab logo">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <path d="M14 47C14 31 23 17 32 17C41 17 50 31 50 47" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          <path d="M21 43C21 31 26 24 32 24C38 24 43 31 43 43" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>
+          <circle cx="32" cy="47" r="5" fill="currentColor"/>
+        </svg>
+        <span>SMA MCQ Lab</span>
+      </div>
+      <div class="nav-actions">
+        <button class="theme-btn" type="button" data-theme-toggle aria-label="Switch theme">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="ghost-btn" type="button" id="scrollToQuiz">Start quiz</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero" aria-labelledby="hero-title">
+      <article class="hero-copy">
+        <div>
+          <span class="eyebrow">Materials science practice set</span>
+          <h1 id="hero-title">20 interactive MCQs on Shape Memory Alloys</h1>
+          <p>Revise Nitinol, martensite-austenite transformation, superelasticity, properties, and real engineering applications with a clean score-based quiz experience.</p>
+        </div>
+        <div class="hero-stats" aria-label="Quiz highlights">
+          <div class="stat"><strong>20</strong><span>Multiple-choice questions</span></div>
+          <div class="stat"><strong>4</strong><span>Options per question</span></div>
+          <div class="stat"><strong>Instant</strong><span>Score and feedback</span></div>
+        </div>
+      </article>
+      <aside class="hero-panel" aria-label="Key concepts covered">
+        <h2>What this covers</h2>
+        <div class="mini-grid">
+          <div class="mini-card"><small>Concepts</small><strong>Shape memory effect and superelasticity</strong></div>
+          <div class="mini-card"><small>Phases</small><strong>Martensite, austenite, and transition temperatures</strong></div>
+          <div class="mini-card"><small>Materials</small><strong>Nitinol, Cu-based and Fe-based SMAs</strong></div>
+          <div class="mini-card"><small>Uses</small><strong>Biomedical, aerospace, robotics, and actuators</strong></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="layout" id="quiz">
+      <aside class="quiz-card sticky" aria-labelledby="progress-title">
+        <h2 id="progress-title">Your progress</h2>
+        <div class="score-ring" id="scoreRing" style="--progress:0; position:relative;"><span id="scoreValue">0%</span></div>
+        <p id="statusText">Answer all questions, then press <strong>Submit Quiz</strong> to see your result.</p>
+        <div class="meta-list" aria-label="Quiz status">
+          <div class="meta-item"><span>Answered</span><strong id="answeredCount">0 / 20</strong></div>
+          <div class="meta-item"><span>Correct</span><strong id="correctCount">0</strong></div>
+          <div class="meta-item"><span>Level</span><strong id="levelText">Ready to begin</strong></div>
+        </div>
+      </aside>
+
+      <section aria-labelledby="questions-title">
+        <div class="question-card" style="margin-bottom: var(--space-5);">
+          <h2 id="questions-title">Shape Memory Alloys question bank</h2>
+          <p>Choose one answer for each question. You can retry anytime using the reset button.</p>
+        </div>
+        <form id="quizForm" class="question-stack"></form>
+        <div class="controls">
+          <button class="primary-btn" type="button" id="submitBtn">Submit Quiz</button>
+          <button class="ghost-btn" type="button" id="resetBtn">Reset Answers</button>
+        </div>
+        <div class="result-box" id="resultBox" aria-live="polite"></div>
+      </section>
+    </section>
+
+    <section class="info-grid" aria-label="Study notes">
+      <article class="info-card">
+        <h3>Quick idea</h3>
+        <p>Shape memory alloys can return to a pre-set shape after deformation when temperature changes trigger a reversible phase transformation.</p>
+      </article>
+      <article class="info-card">
+        <h3>Why engineers use them</h3>
+        <p>They combine compact actuation, damping, biocompatibility in NiTi, and strong recovery behavior, which makes them useful in medical devices and smart mechanisms.</p>
+      </article>
+      <article class="info-card">
+        <h3>Best for revision</h3>
+        <p>This page is designed for fast practice before viva, class test, or presentation, especially for first-year engineering and materials science basics.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="shell">
+    Built as a single-file study website so you can open, edit, and share it easily.
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        q: 'What is the most common and widely used shape memory alloy?',
+        options: ['Brass', 'Nitinol', 'Stainless steel', 'Aluminum bronze'],
+        answer: 1,
+        explanation: 'Nitinol, a nickel-titanium alloy, is the most widely used SMA because of its strong shape recovery, corrosion resistance, and biocompatibility.'
+      },
+      {
+        q: 'What does the word Nitinol mainly refer to?',
+        options: ['Nickel-Titanium Naval Ordnance Laboratory alloy', 'Nitrogen-Titanium oxide layer', 'Nickel-Tin alloy', 'Titanium-Nickel oxide laminate'],
+        answer: 0,
+        explanation: 'The name Nitinol comes from Nickel Titanium Naval Ordnance Laboratory.'
+      },
+      {
+        q: 'Which phase of an SMA is usually stable at lower temperature and easy to deform?',
+        options: ['Austenite', 'Ferrite', 'Martensite', 'Pearlite'],
+        answer: 2,
+        explanation: 'Martensite is the low-temperature phase and is comparatively easy to deform.'
+      },
+      {
+        q: 'When a deformed SMA regains its original shape on heating, the phenomenon is called:',
+        options: ['Creep recovery', 'Shape memory effect', 'Cold working', 'Anodizing'],
+        answer: 1,
+        explanation: 'The ability to recover the original shape after heating is the shape memory effect.'
+      },
+      {
+        q: 'Which high-temperature phase stores the original programmed shape in most SMAs?',
+        options: ['Bainite', 'Martensite', 'Austenite', 'Cementite'],
+        answer: 2,
+        explanation: 'Austenite is the parent phase that represents the remembered shape.'
+      },
+      {
+        q: 'What property allows some SMAs to undergo large strain and recover without permanent deformation under unloading?',
+        options: ['Superelasticity', 'Magnetism', 'Hardness', 'Electrical insulation'],
+        answer: 0,
+        explanation: 'Superelasticity or pseudoelasticity allows large recoverable strain.'
+      },
+      {
+        q: 'Which of the following is a common biomedical application of Nitinol?',
+        options: ['Concrete reinforcement', 'Orthodontic wires', 'Railway tracks', 'Glass coating'],
+        answer: 1,
+        explanation: 'Orthodontic wires are a classic biomedical use of Nitinol because of its superelasticity and biocompatibility.'
+      },
+      {
+        q: 'Which transformation is mainly responsible for the shape memory behavior of SMAs?',
+        options: ['Liquid-solid transformation', 'Diffusionless martensitic transformation', 'Evaporation-condensation', 'Oxidation reduction'],
+        answer: 1,
+        explanation: 'Shape memory behavior is based on a reversible diffusionless martensitic transformation between austenite and martensite.'
+      },
+      {
+        q: 'Compared with Nitinol, many copper-based SMAs are generally:',
+        options: ['More biocompatible and more stable', 'Cheaper but more brittle', 'Non-metallic', 'Unable to show shape memory'],
+        answer: 1,
+        explanation: 'Copper-based SMAs are usually less expensive but tend to be more brittle than NiTi alloys.'
+      },
+      {
+        q: 'What is the one-way shape memory effect?',
+        options: ['The alloy remembers only its low-temperature shape', 'The alloy remembers only its high-temperature shape', 'The alloy changes color when heated', 'The alloy becomes magnetic when cooled'],
+        answer: 1,
+        explanation: 'In one-way effect, the alloy returns to the high-temperature programmed shape when heated.'
+      },
+      {
+        q: 'Two-way shape memory effect means that the material can:',
+        options: ['Remember two different shapes at different temperatures', 'Store two electric charges', 'Work only in vacuum', 'Double its volume when heated'],
+        answer: 0,
+        explanation: 'Two-way memory means the alloy can switch between a low-temperature and high-temperature shape, usually after training.'
+      },
+      {
+        q: 'Which property makes SMAs attractive for vibration control and damping systems?',
+        options: ['High damping capacity', 'Optical transparency', 'Radioactivity', 'Very low melting point'],
+        answer: 0,
+        explanation: 'SMAs can absorb and dissipate vibration energy effectively because of their high damping capacity.'
+      },
+      {
+        q: 'Which of the following is an example of a copper-based SMA?',
+        options: ['Cu-Al-Ni', 'Mg-Si', 'Al-Cu-Mg', 'Pb-Sn'],
+        answer: 0,
+        explanation: 'Cu-Al-Ni is a well-known copper-based shape memory alloy.'
+      },
+      {
+        q: 'Why is NiTi often preferred in biomedical devices?',
+        options: ['It is the cheapest metal available', 'It has high density only', 'It offers corrosion resistance and biocompatibility', 'It cannot deform'],
+        answer: 2,
+        explanation: 'NiTi is favored because it combines corrosion resistance with biocompatibility.'
+      },
+      {
+        q: 'In an SMA actuator, heating usually drives the alloy from:',
+        options: ['Austenite to martensite', 'Martensite to austenite', 'Solid to liquid', 'Ferrite to pearlite'],
+        answer: 1,
+        explanation: 'Heating generally transforms martensite into austenite, enabling shape recovery.'
+      },
+      {
+        q: 'Which engineering field commonly uses SMAs for compact actuators and deployable components?',
+        options: ['Aerospace', 'Ceramic painting', 'Textile bleaching', 'Paper recycling only'],
+        answer: 0,
+        explanation: 'Aerospace systems use SMAs in actuators and deployable smart structures.'
+      },
+      {
+        q: 'What can be controlled by changing composition and heat treatment in Nitinol?',
+        options: ['Transformation temperature', 'Atomic number', 'Planetary motion', 'Color only'],
+        answer: 0,
+        explanation: 'Composition and heat treatment strongly influence transformation temperatures in Nitinol.'
+      },
+      {
+        q: 'Which statement about superelasticity is correct?',
+        options: ['It occurs only in ceramics', 'It is unrelated to phase transformation', 'It can produce large recoverable strain above transformation temperature', 'It means zero stress at all times'],
+        answer: 2,
+        explanation: 'Superelastic behavior gives large recoverable strain, typically when the alloy is above its transformation temperature range.'
+      },
+      {
+        q: 'Which of the following is NOT a usual feature of shape memory alloys?',
+        options: ['Shape recovery on heating', 'High damping capacity', 'Biocompatibility in some alloys', 'Permanent recovery without any phase change mechanism'],
+        answer: 3,
+        explanation: 'SMA behavior depends on reversible phase transformation, not permanent recovery without that mechanism.'
+      },
+      {
+        q: 'A student bends an SMA wire in martensite phase and then heats it. What is most likely to happen?',
+        options: ['It dissolves immediately', 'It keeps the bent shape forever', 'It recovers its original trained shape', 'It becomes a polymer'],
+        answer: 2,
+        explanation: 'When heated, the deformed martensitic wire transforms back toward austenite and recovers its trained shape.'
+      }
+    ];
+
+    const form = document.getElementById('quizForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const resultBox = document.getElementById('resultBox');
+    const answeredCount = document.getElementById('answeredCount');
+    const correctCount = document.getElementById('correctCount');
+    const levelText = document.getElementById('levelText');
+    const scoreValue = document.getElementById('scoreValue');
+    const scoreRing = document.getElementById('scoreRing');
+    const statusText = document.getElementById('statusText');
+    const scrollToQuiz = document.getElementById('scrollToQuiz');
+    const themeToggle = document.querySelector('[data-theme-toggle]');
+    let manualTheme = null;
+
+    function renderQuiz() {
+      form.innerHTML = questions.map((item, index) => `
+        <article class="question-card" id="q${index + 1}">
+          <div class="question-number">Question ${index + 1}</div>
+          <h3>${item.q}</h3>
+          <div class="options">
+            ${item.options.map((option, optIndex) => `
+              <div class="option">
+                <input type="radio" name="q${index}" id="q${index}_o${optIndex}" value="${optIndex}" />
+                <label for="q${index}_o${optIndex}">
+                  <span class="bullet">${String.fromCharCode(65 + optIndex)}</span>
+                  <span>${option}</span>
+                </label>
+              </div>
+            `).join('')}
+          </div>
+          <div class="feedback" id="feedback${index}"></div>
+        </article>
+      `).join('');
+
+      form.querySelectorAll('input[type="radio"]').forEach(input => {
+        input.addEventListener('change', updateProgress);
+      });
+    }
+
+    function getAnswers() {
+      return questions.map((_, index) => {
+        const selected = form.querySelector(`input[name="q${index}"]:checked`);
+        return selected ? Number(selected.value) : null;
+      });
+    }
+
+    function updateProgress() {
+      const answers = getAnswers();
+      const answered = answers.filter(v => v !== null).length;
+      answeredCount.textContent = `${answered} / ${questions.length}`;
+      const progress = Math.round((answered / questions.length) * 100);
+      scoreRing.style.setProperty('--progress', progress);
+      scoreValue.textContent = `${progress}%`;
+      if (answered === 0) levelText.textContent = 'Ready to begin';
+      else if (answered < 10) levelText.textContent = 'Warming up';
+      else if (answered < 20) levelText.textContent = 'Almost done';
+      else levelText.textContent = 'Ready to submit';
+    }
+
+    function submitQuiz() {
+      const answers = getAnswers();
+      let score = 0;
+      answers.forEach((ans, index) => {
+        const feedback = document.getElementById(`feedback${index}`);
+        if (ans === null) {
+          feedback.className = 'feedback wrong';
+          feedback.textContent = 'No answer selected yet. Pick one option before reviewing this question.';
+          return;
+        }
+        if (ans === questions[index].answer) {
+          score++;
+          feedback.className = 'feedback correct';
+          feedback.textContent = `Correct. ${questions[index].explanation}`;
+        } else {
+          feedback.className = 'feedback wrong';
+          feedback.textContent = `Incorrect. Correct answer: ${questions[index].options[questions[index].answer]}. ${questions[index].explanation}`;
+        }
+      });
+
+      const percent = Math.round((score / questions.length) * 100);
+      correctCount.textContent = String(score);
+      scoreRing.style.setProperty('--progress', percent);
+      scoreValue.textContent = `${percent}%`;
+      answeredCount.textContent = `${answers.filter(v => v !== null).length} / ${questions.length}`;
+
+      let remark = 'Keep practicing the basics of phase transformation and applications.';
+      if (percent >= 85) remark = 'Excellent work. Your SMA fundamentals look strong.';
+      else if (percent >= 65) remark = 'Good job. You understand the main concepts, with room for refinement.';
+      else if (percent >= 40) remark = 'Decent start. Review NiTi, martensite, austenite, and superelasticity once more.';
+
+      statusText.innerHTML = `You scored <strong>${score}/${questions.length}</strong>. Review the feedback below to improve.`;
+      levelText.textContent = percent >= 85 ? 'Advanced' : percent >= 65 ? 'Good grasp' : percent >= 40 ? 'Developing' : 'Needs review';
+      resultBox.className = 'result-box show';
+      resultBox.innerHTML = `
+        <h2>Your result: ${score} / ${questions.length}</h2>
+        <p>${remark}</p>
+      `;
+      resultBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    function resetQuiz() {
+      form.reset();
+      correctCount.textContent = '0';
+      document.querySelectorAll('.feedback').forEach(item => {
+        item.className = 'feedback';
+        item.textContent = '';
+      });
+      resultBox.className = 'result-box';
+      resultBox.innerHTML = '';
+      statusText.innerHTML = 'Answer all questions, then press <strong>Submit Quiz</strong> to see your result.';
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      themeToggle.innerHTML = theme === 'dark'
+        ? '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>'
+        : '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>';
+      themeToggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
+    }
+
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    applyTheme(prefersDark.matches ? 'dark' : 'light');
+    prefersDark.addEventListener('change', event => {
+      if (!manualTheme) applyTheme(event.matches ? 'dark' : 'light');
+    });
+
+    themeToggle.addEventListener('click', () => {
+      const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      manualTheme = next;
+      applyTheme(next);
+    });
+
+    scrollToQuiz.addEventListener('click', () => {
+      document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+    });
+
+    submitBtn.addEventListener('click', submitQuiz);
+    resetBtn.addEventListener('click', resetQuiz);
+
+    renderQuiz();
+    updateProgress();
+  </script>
+</body>
+</html>
